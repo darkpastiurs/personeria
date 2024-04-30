@@ -1,14 +1,8 @@
-package sv.com.dkps;
+package sv.com.darkpastiurs.personeria.model;
 
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -23,6 +17,9 @@ public class Persona {
     @OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private PersonaNatural personaNatural;
+    @OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private PersonaJuridica personaJuridica;
 
     public void setPersonaNatural(PersonaNatural personaNatural) {
         if (Objects.isNull(personaNatural)) {
@@ -33,6 +30,17 @@ public class Persona {
             personaNatural.setPersona(this);
         }
         this.personaNatural = personaNatural;
+    }
+
+    public void setPersonaJuridica(PersonaJuridica personaJuridica) {
+        if (Objects.isNull(personaJuridica)) {
+            if (Objects.nonNull(this.personaJuridica)) {
+                this.personaJuridica.setPersona(null);
+            }
+        } else {
+            personaJuridica.setPersona(this);
+        }
+        this.personaJuridica = personaJuridica;
     }
 
 }

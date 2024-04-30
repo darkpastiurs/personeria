@@ -1,9 +1,6 @@
-package sv.com.dkps;
+package sv.com.darkpastiurs.personeria.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
@@ -14,9 +11,10 @@ public class PersonaNatural {
 
     @Id
     private Long id;
+    @Column
     private String nombreCompleto;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private Persona persona;
 
